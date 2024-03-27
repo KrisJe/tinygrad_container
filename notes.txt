@@ -1,0 +1,78 @@
+E:\repos\docker_cuda_app>build
+
+E:\repos\docker_cuda_app>docker build -t tinygrad_container .
+[+] Building 380.7s (16/16) FINISHED                                                                                            docker:default 
+ => [internal] load build definition from Dockerfile                                                                                      0.0s 
+ => => transferring dockerfile: 1.99kB                                                                                                    0.0s 
+ => [internal] load metadata for docker.io/nvidia/cuda:11.4.3-runtime-ubuntu20.04                                                         0.9s 
+ => [auth] nvidia/cuda:pull token for registry-1.docker.io                                                                                0.0s 
+ => [internal] load .dockerignore                                                                                                         0.0s 
+ => => transferring context: 2B                                                                                                           0.0s 
+ => CACHED [base 1/1] FROM docker.io/nvidia/cuda:11.4.3-runtime-ubuntu20.04@sha256:3beb33b21bcea4e78399c37574eba400fe85b5f48a7188eec7208  0.0s 
+ => [internal] load build context                                                                                                         0.0s 
+ => => transferring context: 62B                                                                                                          0.0s 
+ => [stage-2 1/9] RUN apt-get update && apt-get install -y --no-install-recommends     libcudnn8=8.2.4.15-1+cuda11.4     && apt-mark ho  60.1s 
+ => [stage-2 2/9] RUN apt-get -y update     && apt-get install -y software-properties-common     && apt-get -y update     && add-apt-re  98.8s 
+ => [stage-2 3/9] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential  clang     git     curl     wget  49.1s 
+ => [stage-2 4/9] WORKDIR /repos/docker_cuda_app                                                                                          0.1s 
+ => [stage-2 5/9] COPY requirements.txt app.py ./                                                                                         0.1s 
+ => [stage-2 6/9] RUN python3  -m pip install --upgrade pip                                                                               2.1s 
+ => [stage-2 7/9] RUN python3 -m pip install pylint flake8                                                                                2.8s 
+ => [stage-2 8/9] RUN pip install --no-cache-dir -r requirements.txt  --default-timeout=100                                             157.2s 
+ => [stage-2 9/9] RUN git clone https://github.com/tinygrad/tinygrad.git                                                                  2.6s 
+ => exporting to image                                                                                                                    6.8s
+ => => exporting layers                                                                                                                   6.8s
+ => => writing image sha256:3e4f7c012bcf3667961252f9304d12e1eadf6dd2a3d1169eb624ed983ad2cf2b                                              0.0s
+ => => naming to docker.io/library/tinygrad_container                                                                                     0.0s
+
+View build details: docker-desktop://dashboard/build/default/default/st6d85s7no05g99g7zc9k65m4
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+
+E:\repos\docker_cuda_app>run.bat
+
+E:\repos\docker_cuda_app>docker run --gpus all -it tinygrad_container:latest
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.4.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+root@d900f6ca72bd:/repos/docker_cuda_app# nvidia-smi
+Wed Mar 27 18:48:49 2024       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 470.238      Driver Version: 474.82       CUDA Version: 11.4     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  Off  | 00000000:07:00.0 Off |                  N/A |
+|ERR!    0C    P8    11W / 250W |     69MiB /  6144MiB |    ERR!      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+root@d900f6ca72bd:/repos/docker_cuda_app# ls
+app.py  requirements.txt  tinygrad
+root@d900f6ca72bd:/repos/docker_cuda_app#
+ *  History restored 
+
+PS E:\repos\docker_cuda_app> 
+
+
