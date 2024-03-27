@@ -1,0 +1,7 @@
+#requirements for https://github.com/tinygrad/tinygrad.git
+numpy 
+numba
+pillow 
+torch
+#tinygrad
+
